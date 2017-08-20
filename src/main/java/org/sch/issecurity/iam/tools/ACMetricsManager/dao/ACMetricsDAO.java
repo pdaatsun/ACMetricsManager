@@ -13,7 +13,7 @@ public interface ACMetricsDAO {
 
     ACMetrics getACMetricsByID(long acmID);
 
-    List<ACMetrics> getAllACMetricssByDate(Date tranDate);
+    List<ACMetrics> listACMetricssByDate(Date tranDate);
 
     void addACMetrics(ACMetrics acMetrics);
 
@@ -22,4 +22,6 @@ public interface ACMetricsDAO {
     void deleteACMetrics(long acmID);
 
     boolean findACMetrics(Date tranDate, int analystID, String SNOWID, int appID, int operationID);
+
+    boolean isACMetricsExist (ACMetrics acMetrics);
 }

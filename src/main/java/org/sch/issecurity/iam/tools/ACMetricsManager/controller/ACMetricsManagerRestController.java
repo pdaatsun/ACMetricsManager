@@ -1,9 +1,10 @@
 package org.sch.issecurity.iam.tools.ACMetricsManager.controller;
  
+import java.sql.Date;
 import java.util.List;
 
-import org.sch.issecurity.iam.tools.ACMetricsManager.model.User;
-import org.sch.issecurity.iam.tools.ACMetricsManager.service.UserService;
+import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAO;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,106 +21,111 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ACMetricsManagerRestController {
  
     @Autowired
-    UserService userService;  //Service which will do all data retrieval/manipulation work
+    ACMetricsDAO acMetricsDAO;  //Service which will do all data retrieval/manipulation work
  
     
-    //-------------------Retrieve All Users--------------------------------------------------------
+    //-------------------Retrieve All ACMetricss--------------------------------------------------------
      
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
-        if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+    @RequestMapping(value = "/acm/{tranDate}", method = RequestMethod.GET)
+    public ResponseEntity<List<ACMetrics>> listACMetricssByDate(@PathVariable("tranDate") Date tranDate) {
+        List<ACMetrics> acMetricsList = acMetricsDAO.listACMetricssByDate(tranDate);
+        if(acMetricsList.isEmpty()){
+            return new ResponseEntity<List<ACMetrics>>(HttpStatus.NO_CONTENT);//You may decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<ACMetrics>>(acMetricsList, HttpStatus.OK);
     }
  
  
     
-    //-------------------Retrieve Single User--------------------------------------------------------
+    //-------------------Retrieve Single ACMetrics--------------------------------------------------------
      
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") long id) {
-        System.out.println("Fetching User with id " + id);
-        User user = userService.findById(id);
-        if (user == null) {
-            System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+    @RequestMapping(value = "/acm/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ACMetrics> getACMetrics(@PathVariable("id") long id) {
+        System.out.println("Fetching ACMetrics with id " + id);
+        ACMetrics acMetrics = acMetricsDAO.getACMetricsByID(id);
+        if (acMetrics == null) {
+            System.out.println("ACMetrics with id " + id + " not found");
+            return new ResponseEntity<ACMetrics>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<ACMetrics>(acMetrics, HttpStatus.OK);
     }
  
      
      
-    //-------------------Create a User--------------------------------------------------------
+    //-------------------Create a ACMetrics--------------------------------------------------------
      
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getUsername());
+    @RequestMapping(value = "/acm", method = RequestMethod.POST)
+    public ResponseEntity<Void> createACMetrics(@RequestBody ACMetrics acMetrics,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating ACMetrics " + acMetrics.toString());
  
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getUsername() + " already exist");
+        if (acMetricsDAO.isACMetricsExist(acMetrics)) {
+            System.out.println("A ACMetrics of " + acMetrics.toString() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
  
-        userService.saveUser(user);
+        acMetricsDAO.addACMetrics(acMetrics);
  
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/acm/{id}").buildAndExpand(acMetrics.getAcmID()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
  
     
      
-    //------------------- Update a User --------------------------------------------------------
+    //------------------- Update a ACMetrics --------------------------------------------------------
      
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        System.out.println("Updating User " + id);
+    @RequestMapping(value = "/acm/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<ACMetrics> updateACMetrics(@PathVariable("id") long id, @RequestBody ACMetrics acMetrics) {
+        System.out.println("Updating ACMetrics " + id);
          
-        User currentUser = userService.findById(id);
+        ACMetrics currentACMetrics = acMetricsDAO.getACMetricsByID(id);
          
-        if (currentUser==null) {
-            System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        if (currentACMetrics==null) {
+            System.out.println("ACMetrics with id " + id + " not found");
+            return new ResponseEntity<ACMetrics>(HttpStatus.NOT_FOUND);
         }
  
-        currentUser.setUsername(user.getUsername());
-        currentUser.setAddress(user.getAddress());
-        currentUser.setEmail(user.getEmail());
-         
-        userService.updateUser(currentUser);
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+        currentACMetrics.setAnalystID(acMetrics.getAnalystID());
+        currentACMetrics.setAppID(acMetrics.getAppID());
+        currentACMetrics.setNumOfUsers(acMetrics.getNumOfUsers());
+        currentACMetrics.setOperationID(acMetrics.getOperationID());
+        currentACMetrics.setSNOWID(acMetrics.getSNOWID());
+        currentACMetrics.setTranDate(acMetrics.getTranDate());
+
+        java.sql.Date uploadDate = new java.sql.Date(new java.util.Date().getTime());
+        currentACMetrics.setUploadDate(uploadDate);
+
+        acMetricsDAO.updateACMetrics(currentACMetrics);
+        return new ResponseEntity<ACMetrics>(currentACMetrics, HttpStatus.OK);
     }
  
     
     
-    //------------------- Delete a User --------------------------------------------------------
+    //------------------- Delete a ACMetrics --------------------------------------------------------
      
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting User with id " + id);
+    @RequestMapping(value = "/acm/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<ACMetrics> deleteACMetrics(@PathVariable("id") long id) {
+        System.out.println("Fetching & Deleting ACMetrics with id " + id);
  
-        User user = userService.findById(id);
-        if (user == null) {
-            System.out.println("Unable to delete. User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        ACMetrics acMetrics = acMetricsDAO.getACMetricsByID(id);
+        if (acMetrics == null) {
+            System.out.println("Unable to delete. ACMetrics with id " + id + " not found");
+            return new ResponseEntity<ACMetrics>(HttpStatus.NOT_FOUND);
         }
  
-        userService.deleteUserById(id);
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        acMetricsDAO.deleteACMetrics(id);
+        return new ResponseEntity<ACMetrics>(HttpStatus.NO_CONTENT);
     }
  
      
     
-    //------------------- Delete All Users --------------------------------------------------------
+    //------------------- Delete All ACMetricss --------------------------------------------------------
      
-    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteAllUsers() {
-        System.out.println("Deleting All Users");
+    @RequestMapping(value = "/acm", method = RequestMethod.DELETE)
+    public ResponseEntity<ACMetrics> deleteAllACMetricss() {
+        System.out.println("Deleting All ACMetricss is not supported");
  
-        userService.deleteAllUsers();
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<ACMetrics>(HttpStatus.NO_CONTENT);
     }
  
 }

@@ -34,6 +34,14 @@ public class ACMetrics {
     @Column(name="uploadDate")
     Date uploadDate;
 
+    public long getAcmID() {
+        return acmID;
+    }
+
+    public void setAcmID(long acmID) {
+        this.acmID = acmID;
+    }
+
     public Date getTranDate() {
         return tranDate;
     }
@@ -90,4 +98,17 @@ public class ACMetrics {
         this.uploadDate = uploadDate;
     }
 
+    @Override
+    public String toString() {
+        return "ACMetrics{" +
+                "acmID=" + acmID +
+                ", tranDate=" + tranDate +
+                ", analystID=" + analystID +
+                ", SNOWID='" + SNOWID + '\'' +
+                ", appID=" + appID +
+                ", operationID=" + operationID +
+                ", numOfUsers=" + numOfUsers +
+                ", uploadDate=" + uploadDate +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package org.sch.issecurity.iam.tools.ACMetricsManager.dao;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
@@ -10,6 +11,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,13 +19,25 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("acMetricsDAO")
 public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements ACMetricsDAO{
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public ACMetricsDAOImpl() {
+
+    }
+
+    public ACMetricsDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public ACMetrics getACMetricsByID(long acmID) {
         return getByKey(acmID);
     }
 
     @Override
-    public List<ACMetrics> getAllACMetricssByDate(Date tranDate) {
+    public List<ACMetrics> listACMetricssByDate(Date tranDate) {
         Criteria criteria = createEntityCriteria();
         if(tranDate!=null){
             criteria.add(Restrictions.eq("tranDate",tranDate));
@@ -70,5 +84,11 @@ public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements AC
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean isACMetricsExist (ACMetrics acMetrics) {
+        if (acMetrics == null) return false;
+        return findACMetrics(acMetrics.getTranDate(), acMetrics.getAnalystID(), acMetrics.getSNOWID(), acMetrics.getAppID(), acMetrics.getOperationID());
     }
 }
