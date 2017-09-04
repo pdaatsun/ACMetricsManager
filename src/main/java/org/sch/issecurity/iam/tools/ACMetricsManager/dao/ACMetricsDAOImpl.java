@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by XiChen on 7/23/2017.
@@ -42,7 +43,7 @@ public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements AC
         if(tranDate!=null){
             criteria.add(Restrictions.eq("tranDate",tranDate));
         }
-        criteria.addOrder(Order.desc("SNOWID"));
+        //criteria.addOrder(Order.desc("SNOWID"));
 
         return (List<ACMetrics>) criteria.list();
     }

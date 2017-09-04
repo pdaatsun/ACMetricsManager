@@ -44,10 +44,10 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 	@Bean(name = "dataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/usersdb");
-		dataSource.setUsername("root");
-		dataSource.setPassword("P@ssw0rd");
+		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		dataSource.setUrl("jdbc:sqlserver://LPFORDIAMORA02:1433;DatabaseName=ACOperation;");
+		dataSource.setUsername("IAMDEV");
+		dataSource.setPassword("admin123");
 
 		return dataSource;
 	}
@@ -56,7 +56,7 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 	private Properties getHibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.show_sql", "true");
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServer2008Dialect");
 		return properties;
 	}
 
@@ -81,7 +81,7 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 
 	@Autowired
 	@Bean(name = "acMetricsDAO")
-	public ACMetricsDAO getUserDao(SessionFactory sessionFactory) {
+	public ACMetricsDAO getACMetricsDAO(SessionFactory sessionFactory) {
 		return new ACMetricsDAOImpl(sessionFactory);
 	}
 

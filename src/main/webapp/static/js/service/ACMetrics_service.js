@@ -11,9 +11,9 @@ App.factory('ACMetrics', ['$resource', function ($resource) {
     			      method: 'PUT' // To send the HTTP Put request when calling this custom update method.
     			},
                 queryByDate :{
+    				url: 'http://localhost:8080/acm/byDate',
                     method : 'GET',
-                    url : 'http://localhost:8080/acm/:tranDate' ,
-                    params : { tranDate : '@tranDate' }
+                    isArray: true
                 }
     			
     		}
