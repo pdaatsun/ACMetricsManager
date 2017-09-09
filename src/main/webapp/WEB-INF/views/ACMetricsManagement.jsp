@@ -74,7 +74,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-2 control-lable" for="SNOWID">SNOW ID</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="ctrl.acMetrics.SNOWID" id="SNOWID"
+                            <input type="text" ng-model="ctrl.acMetrics.snowid" id="SNOWID"
                                    class="form-control input-sm" placeholder="Enter SNOW ID" required/>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.SNOWID.$error.required">This is a required field</span>
@@ -142,10 +142,10 @@
                 <thead>
                 <tr>
                     <th>Metrics ID</th>
-                    <th>Analyst ID</th>
+                    <th>Analyst</th>
                     <th>SNOW ID</th>
-                    <th>Application ID</th>
-                    <th>Operation ID</th>
+                    <th>Application</th>
+                    <th>Operation</th>
                     <th>Number of Users</th>
                     <th>Upload Date</th>
                     <th width="20%"></th>
@@ -154,10 +154,10 @@
                 <tbody>
                 <tr ng-repeat="acm in ctrl.acMetricsList">
                     <td><span ng-bind="acm.acmID"></span></td>
-                    <td><span ng-bind="acm.analystID"></span></td>
-                    <td><span ng-bind="acm.SNOWID"></span></td>
-                    <td><span ng-bind="acm.appID"></span></td>
-                    <td><span ng-bind="acm.operationID"></span></td>
+                    <td><span ng-bind="acm.analyst.firstName"></span></td>
+                    <td><span ng-bind="acm.snowid"></span></td>
+                    <td><span ng-bind="acm.application.appName"></span></td>
+                    <td><span ng-bind="acm.operation.operationType"></span></td>
                     <td><span ng-bind="acm.numOfUsers"></span></td>
                     <td><span ng-bind="acm.uploadDate"></span></td>
                     <td>

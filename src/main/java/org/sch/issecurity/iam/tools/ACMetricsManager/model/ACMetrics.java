@@ -2,6 +2,7 @@ package org.sch.issecurity.iam.tools.ACMetricsManager.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+
 /**
  * Created by XiChen on 7/17/2017.
  */
@@ -16,17 +17,20 @@ public class ACMetrics {
     @Column(name="tranDate")
     Date tranDate;
 
-    @Column(name="analystID")
-    int analystID;
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "analystID")
+    Analyst analyst;
+
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "appID")
+    Application application;
+
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "operationID")
+    Operation operation;
 
     @Column(name="SNOWID")
     String SNOWID;
-
-    @Column(name="appID")
-    int appID;
-
-    @Column(name="operationID")
-    int operationID;
 
     @Column(name="numOfUsers")
     int numOfUsers;
@@ -50,12 +54,12 @@ public class ACMetrics {
         this.tranDate = tranDate;
     }
 
-    public int getAnalystID() {
-        return analystID;
+    public Analyst getAnalyst() {
+        return analyst;
     }
 
-    public void setAnalystID(int analystID) {
-        this.analystID = analystID;
+    public void setAnalyst(Analyst analyst) {
+        this.analyst = analyst;
     }
 
     public String getSNOWID() {
@@ -66,20 +70,20 @@ public class ACMetrics {
         this.SNOWID = SNOWID;
     }
 
-    public int getAppID() {
-        return appID;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setAppID(int appID) {
-        this.appID = appID;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
-    public int getOperationID() {
-        return operationID;
+    public Operation getOperation() {
+        return operation;
     }
 
-    public void setOperationID(int operationID) {
-        this.operationID = operationID;
+    public void setOperation(Operation operation) {
+        this.operation = operation;
     }
 
     public int getNumOfUsers() {
@@ -103,10 +107,10 @@ public class ACMetrics {
         return "ACMetrics{" +
                 "acmID=" + acmID +
                 ", tranDate=" + tranDate +
-                ", analystID=" + analystID +
+                ", analyst=" + analyst.getFirstName() + " " + analyst.getLastName() +
                 ", SNOWID='" + SNOWID + '\'' +
-                ", appID=" + appID +
-                ", operationID=" + operationID +
+                ", application=" + application.getAppCode() +
+                ", operation=" + operation.getOperationType() +
                 ", numOfUsers=" + numOfUsers +
                 ", uploadDate=" + uploadDate +
                 '}';

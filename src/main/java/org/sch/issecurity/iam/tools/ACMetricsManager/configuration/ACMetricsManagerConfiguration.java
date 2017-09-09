@@ -3,6 +3,9 @@ package org.sch.issecurity.iam.tools.ACMetricsManager.configuration;
 import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAO;
 import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAOImpl;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -66,6 +69,9 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sessionBuilder.addProperties(getHibernateProperties());
 		sessionBuilder.addAnnotatedClasses(ACMetrics.class);
+		sessionBuilder.addAnnotatedClasses(Application.class);
+		sessionBuilder.addAnnotatedClasses(Analyst.class);
+		sessionBuilder.addAnnotatedClasses(Operation.class);
 		return sessionBuilder.buildSessionFactory();
 	}
 

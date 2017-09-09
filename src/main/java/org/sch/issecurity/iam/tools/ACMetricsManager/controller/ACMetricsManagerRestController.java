@@ -85,10 +85,10 @@ public class ACMetricsManagerRestController {
             return new ResponseEntity<ACMetrics>(HttpStatus.NOT_FOUND);
         }
  
-        currentACMetrics.setAnalystID(acMetrics.getAnalystID());
-        currentACMetrics.setAppID(acMetrics.getAppID());
+        currentACMetrics.setAnalyst(acMetrics.getAnalyst());
+        currentACMetrics.setApplication(acMetrics.getApplication());
         currentACMetrics.setNumOfUsers(acMetrics.getNumOfUsers());
-        currentACMetrics.setOperationID(acMetrics.getOperationID());
+        currentACMetrics.setOperation(acMetrics.getOperation());
         currentACMetrics.setSNOWID(acMetrics.getSNOWID());
         currentACMetrics.setTranDate(acMetrics.getTranDate());
 

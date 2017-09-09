@@ -90,6 +90,6 @@ public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements AC
     @Override
     public boolean isACMetricsExist (ACMetrics acMetrics) {
         if (acMetrics == null) return false;
-        return findACMetrics(acMetrics.getTranDate(), acMetrics.getAnalystID(), acMetrics.getSNOWID(), acMetrics.getAppID(), acMetrics.getOperationID());
+        return findACMetrics(acMetrics.getTranDate(), acMetrics.getAnalyst().getAnalystID(), acMetrics.getSNOWID(), acMetrics.getApplication().getAppID(), acMetrics.getOperation().getOperationID());
     }
 }
