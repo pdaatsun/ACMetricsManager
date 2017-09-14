@@ -14,8 +14,12 @@ App.factory('ACMetrics', ['$resource', function ($resource) {
     				url: 'http://localhost:8080/acm/byDate',
                     method : 'GET',
                     isArray: true
+                },
+                listAnalyst :{
+                    url: 'http://localhost:8080/acm/analyst',
+                    method : 'GET',
+                    isArray: true
                 }
-    			
     		}
     );
 }]);

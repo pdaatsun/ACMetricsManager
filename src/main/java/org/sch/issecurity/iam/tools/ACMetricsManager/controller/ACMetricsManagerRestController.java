@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAO;
+import org.sch.issecurity.iam.tools.ACMetricsManager.dao.AnalystDAO;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +21,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ACMetricsManagerRestController {
  
     @Autowired
-    ACMetricsDAO acMetricsDAO;  //Service which will do all data retrieval/manipulation work
+    ACMetricsDAO acMetricsDAO;
+
+    @Autowired
+    AnalystDAO analystDAO;
  
     
     //-------------------Retrieve All ACMetricss--------------------------------------------------------
@@ -127,5 +132,16 @@ public class ACMetricsManagerRestController {
  
         return new ResponseEntity<ACMetrics>(HttpStatus.NO_CONTENT);
     }
- 
+
+
+    //-------------------Retrieve All Analysts--------------------------------------------------------
+
+    @RequestMapping(value = "/acm/analyst", method = RequestMethod.GET)
+    public ResponseEntity<List<Analyst>> listACMetricssByDate() {
+        List<Analyst> analystList = analystDAO.listAnalyst();
+        if(analystList.isEmpty()){
+            return new ResponseEntity<List<Analyst>>(HttpStatus.NO_CONTENT);//You may decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Analyst>>(analystList, HttpStatus.OK);
+    }
 }

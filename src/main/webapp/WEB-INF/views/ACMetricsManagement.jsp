@@ -59,13 +59,11 @@
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable" for="analystID">Analyst ID</label>
+                        <label class="col-md-2 control-lable" for="analystSelect">Analyst</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="ctrl.acMetrics.analystID" id="analystID"
-                                   class="form-control input-sm" placeholder="Enter Analyst ID" required/>
-                            <div class="has-error" ng-show="myForm.$dirty">
-                                <span ng-show="myForm.analystID.$error.required">This is a required field</span>
-                            </div>
+                            <select id="analystSelect" class="form-control input-sm"
+                                    ng-options="acAnalyst.firstName for acAnalyst in ctrl.analystList track by acAnalyst.analystID" ng-model="ctrl.acMetrics.analyst">
+                            </select>
                         </div>
                     </div>
                 </div>

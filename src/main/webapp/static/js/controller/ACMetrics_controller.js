@@ -7,6 +7,22 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
     self.acMetricsList = [];
     self.tranDate = new Date();
 
+    self.analystList = [];
+
+    self.analystListtest =
+    [  {
+        analystID: '1',
+        firstName: 'Xiaofang',
+
+} ,  {
+        analystID: '2',
+        firstName: 'John',
+
+    }];
+    self.fetchAllAnalysts = function () {
+        self.analystList = ACMetrics.listAnalyst();
+    }
+
     self.fetchAllACMetricss = function () {
         var formattedtranDate = self.tranDate.toISOString().slice(0,10);
         self.acMetricsList = ACMetrics.queryByDate({tranDate:formattedtranDate});
@@ -33,6 +49,7 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
         });
     };
 
+    self.fetchAllAnalysts();
     self.fetchAllACMetricss();
 
     self.submit = function () {
