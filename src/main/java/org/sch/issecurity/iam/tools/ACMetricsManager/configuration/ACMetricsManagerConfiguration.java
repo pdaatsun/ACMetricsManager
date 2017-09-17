@@ -1,9 +1,6 @@
 package org.sch.issecurity.iam.tools.ACMetricsManager.configuration;
 
-import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAO;
-import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAOImpl;
-import org.sch.issecurity.iam.tools.ACMetricsManager.dao.AnalystDAO;
-import org.sch.issecurity.iam.tools.ACMetricsManager.dao.AnalystDAOImpl;
+import org.sch.issecurity.iam.tools.ACMetricsManager.dao.*;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
@@ -99,4 +96,15 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 		return new AnalystDAOImpl(sessionFactory);
 	}
 
+	@Autowired
+	@Bean(name = "applicationDAO")
+	public ApplicationDAO getApplicationDAO(SessionFactory sessionFactory) {
+		return new ApplicationDAOImpl(sessionFactory);
+	}
+
+	@Autowired
+	@Bean(name = "operationDAO")
+	public OperationDAO getOperationDAO(SessionFactory sessionFactory) {
+		return new OperationDAOImpl(sessionFactory);
+	}
 }

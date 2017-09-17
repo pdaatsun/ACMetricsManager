@@ -1,6 +1,9 @@
 package org.sch.issecurity.iam.tools.ACMetricsManager.dao;
 
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Operation;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,7 +23,7 @@ public interface ACMetricsDAO {
 
     void deleteACMetrics(long acmID);
 
-    boolean findACMetrics(Date tranDate, int analystID, String SNOWID, int appID, int operationID);
+    boolean findACMetrics(Date tranDate, Analyst analyst, String SNOWID, Application application, Operation operation);
 
     boolean isACMetricsExist (ACMetrics acMetrics);
 }

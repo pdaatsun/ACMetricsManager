@@ -11,6 +11,9 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,15 +70,15 @@ public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements AC
     }
 
     @Override
-    public boolean findACMetrics(Date tranDate, int analystID, String SNOWID, int appID, int operationID) {
+    public boolean findACMetrics(Date tranDate, Analyst analyst, String SNOWID, Application application, Operation operation) {
         Criteria criteria = createEntityCriteria();
         if(tranDate!=null){
             criteria.add(Restrictions.eq("tranDate",tranDate));
         }
-        criteria.add(Restrictions.eq("analystID",analystID));
+        criteria.add(Restrictions.eq("analyst", analyst));
         criteria.add(Restrictions.eq("SNOWID",SNOWID));
-        criteria.add(Restrictions.eq("appID",appID));
-        criteria.add(Restrictions.eq("operationID",operationID));
+        criteria.add(Restrictions.eq("application",application));
+        criteria.add(Restrictions.eq("operation",operation));
 
         ACMetrics acMetrics = null;
         acMetrics = (ACMetrics) criteria.uniqueResult();
@@ -90,6 +93,6 @@ public class ACMetricsDAOImpl extends AbstractDao<Long, ACMetrics> implements AC
     @Override
     public boolean isACMetricsExist (ACMetrics acMetrics) {
         if (acMetrics == null) return false;
-        return findACMetrics(acMetrics.getTranDate(), acMetrics.getAnalyst().getAnalystID(), acMetrics.getSNOWID(), acMetrics.getApplication().getAppID(), acMetrics.getOperation().getOperationID());
+        return findACMetrics(acMetrics.getTranDate(), acMetrics.getAnalyst(), acMetrics.getSNOWID(), acMetrics.getApplication(), acMetrics.getOperation());
     }
 }

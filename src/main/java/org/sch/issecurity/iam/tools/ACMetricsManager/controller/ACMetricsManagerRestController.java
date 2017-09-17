@@ -2,12 +2,17 @@ package org.sch.issecurity.iam.tools.ACMetricsManager.controller;
  
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ACMetricsDAO;
 import org.sch.issecurity.iam.tools.ACMetricsManager.dao.AnalystDAO;
+import org.sch.issecurity.iam.tools.ACMetricsManager.dao.ApplicationDAO;
+import org.sch.issecurity.iam.tools.ACMetricsManager.dao.OperationDAO;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
+import org.sch.issecurity.iam.tools.ACMetricsManager.model.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -25,8 +30,15 @@ public class ACMetricsManagerRestController {
 
     @Autowired
     AnalystDAO analystDAO;
- 
-    
+
+    @Autowired
+    ApplicationDAO applicationDAO;
+
+    @Autowired
+    OperationDAO operationDAO;
+
+
+
     //-------------------Retrieve All ACMetricss--------------------------------------------------------
      
     @RequestMapping(value = "/acm/byDate", params="tranDate", method = RequestMethod.GET)
@@ -67,7 +79,8 @@ public class ACMetricsManagerRestController {
             System.out.println("A ACMetrics of " + acMetrics.toString() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
- 
+
+        acMetrics.setUploadDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         acMetricsDAO.addACMetrics(acMetrics);
  
         HttpHeaders headers = new HttpHeaders();
@@ -137,11 +150,33 @@ public class ACMetricsManagerRestController {
     //-------------------Retrieve All Analysts--------------------------------------------------------
 
     @RequestMapping(value = "/acm/analyst", method = RequestMethod.GET)
-    public ResponseEntity<List<Analyst>> listACMetricssByDate() {
+    public ResponseEntity<List<Analyst>> listAllAnalyst() {
         List<Analyst> analystList = analystDAO.listAnalyst();
         if(analystList.isEmpty()){
             return new ResponseEntity<List<Analyst>>(HttpStatus.NO_CONTENT);//You may decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Analyst>>(analystList, HttpStatus.OK);
+    }
+
+    //-------------------Retrieve All Application--------------------------------------------------------
+
+    @RequestMapping(value = "/acm/application", method = RequestMethod.GET)
+    public ResponseEntity<List<Application>> listAllApplication() {
+        List<Application> applicationList = applicationDAO.listApplication();
+        if(applicationList.isEmpty()){
+            return new ResponseEntity<List<Application>>(HttpStatus.NO_CONTENT);//You may decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Application>>(applicationList, HttpStatus.OK);
+    }
+
+    //-------------------Retrieve All Operation--------------------------------------------------------
+
+    @RequestMapping(value = "/acm/operation", method = RequestMethod.GET)
+    public ResponseEntity<List<Operation>> listAllOperation() {
+        List<Operation> operationList = operationDAO.listOperation();
+        if(operationList.isEmpty()){
+            return new ResponseEntity<List<Operation>>(HttpStatus.NO_CONTENT);//You may decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Operation>>(operationList, HttpStatus.OK);
     }
 }

@@ -19,6 +19,16 @@ App.factory('ACMetrics', ['$resource', function ($resource) {
                     url: 'http://localhost:8080/acm/analyst',
                     method : 'GET',
                     isArray: true
+                },
+                listApplication :{
+                    url: 'http://localhost:8080/acm/application',
+                    method : 'GET',
+                    isArray: true
+                },
+                listOperation :{
+                    url: 'http://localhost:8080/acm/operation',
+                    method : 'GET',
+                    isArray: true
                 }
     		}
     );

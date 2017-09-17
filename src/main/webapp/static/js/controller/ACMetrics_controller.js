@@ -8,19 +8,18 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
     self.tranDate = new Date();
 
     self.analystList = [];
-
-    self.analystListtest =
-    [  {
-        analystID: '1',
-        firstName: 'Xiaofang',
-
-} ,  {
-        analystID: '2',
-        firstName: 'John',
-
-    }];
     self.fetchAllAnalysts = function () {
         self.analystList = ACMetrics.listAnalyst();
+    }
+
+    self.applicationList = [];
+    self.fetchAllApplications = function () {
+        self.applicationList = ACMetrics.listApplication();
+    }
+
+    self.operationList = [];
+    self.fetchAllOperations = function () {
+        self.operationList = ACMetrics.listOperation();
     }
 
     self.fetchAllACMetricss = function () {
@@ -50,6 +49,8 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
     };
 
     self.fetchAllAnalysts();
+    self.fetchAllApplications();
+    self.fetchAllOperations();
     self.fetchAllACMetricss();
 
     self.submit = function () {

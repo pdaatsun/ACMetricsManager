@@ -83,10 +83,11 @@
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable" for="appID">Application ID</label>
+                        <label class="col-md-2 control-lable" for="appSelect">Application</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="ctrl.acMetrics.appID" id="appID" class="form-control input-sm"
-                                   placeholder="Enter Application ID" required/>
+                            <select id="appSelect" class="form-control input-sm"
+                                    ng-options="application.appName for application in ctrl.applicationList track by application.appID" ng-model="ctrl.acMetrics.application">
+                            </select>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.appID.$error.required">This is a required field</span>
                             </div>
@@ -96,10 +97,11 @@
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable" for="operationID">Operation ID</label>
+                        <label class="col-md-2 control-lable" for="operSelect">Operation</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="ctrl.acMetrics.operationID" id="operationID"
-                                   class="form-control input-sm" placeholder="Enter Operation ID" required/>
+                            <select id="operSelect" class="form-control input-sm"
+                                    ng-options="operation.operationType for operation in ctrl.operationList track by operation.operationID" ng-model="ctrl.acMetrics.operation">
+                            </select>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.operationID.$error.required">This is a required field</span>
                             </div>
