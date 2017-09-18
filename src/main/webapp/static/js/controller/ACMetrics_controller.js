@@ -10,17 +10,17 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
     self.analystList = [];
     self.fetchAllAnalysts = function () {
         self.analystList = ACMetrics.listAnalyst();
-    }
+    };
 
     self.applicationList = [];
     self.fetchAllApplications = function () {
         self.applicationList = ACMetrics.listApplication();
-    }
+    };
 
     self.operationList = [];
     self.fetchAllOperations = function () {
         self.operationList = ACMetrics.listOperation();
-    }
+    };
 
     self.fetchAllACMetricss = function () {
         var formattedtranDate = self.tranDate.toISOString().slice(0,10);
@@ -98,10 +98,24 @@ App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, 
         opened: false
     };
 
+    // Only shows Metrics of the selected Analyst
+    self.hideMetricsOfAnalyst = function(analyst) {
+        if ((!self.acMetrics) || (!self.acMetrics.analyst)) {
+            console.log('DO NOT hide acm if not selected');
+            return false;
+        }
+        if (analyst.analystID === self.acMetrics.analyst.analystID) {
+            console.log('DO NOT hide acm for selected Analyst');
+            return false;
+        }
+        console.log('Hide acm');
+        return true;
+    };
+
     self.dateOptions = {
-        dateDisabled: disabled,
+        //dateDisabled: disabled,
         formatYear: 'yy',
-        maxDate: new Date(2020, 5, 22),
+        maxDate: new Date(2030, 1, 1),
         minDate: new Date(2017, 1, 1),
         startingDay: 1
     };

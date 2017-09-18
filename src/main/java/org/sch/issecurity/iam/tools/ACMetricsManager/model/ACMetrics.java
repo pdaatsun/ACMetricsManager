@@ -17,15 +17,15 @@ public class ACMetrics {
     @Column(name="tranDate")
     Date tranDate;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "analystID")
     Analyst analyst;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "appID")
     Application application;
 
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "operationID")
     Operation operation;
 

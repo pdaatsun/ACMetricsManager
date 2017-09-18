@@ -55,7 +55,7 @@ public class ACMetricsManagerRestController {
  
     
     //-------------------Retrieve Single ACMetrics--------------------------------------------------------
-     /*
+
     @RequestMapping(value = "/acm/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ACMetrics> getACMetrics(@PathVariable("id") long id) {
         System.out.println("Fetching ACMetrics with id " + id);
@@ -66,8 +66,6 @@ public class ACMetricsManagerRestController {
         }
         return new ResponseEntity<ACMetrics>(acMetrics, HttpStatus.OK);
     }
- */
-     
      
     //-------------------Create a ACMetrics--------------------------------------------------------
      

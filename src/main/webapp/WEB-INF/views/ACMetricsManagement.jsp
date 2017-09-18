@@ -41,32 +41,34 @@
             <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
 
                 <input type="hidden" ng-model="ctrl.acMetrics.acmID"/>
-                <h4>Transaction Date</h4>
-                <div class="row">
-                        <div class="col-md-3">
-                            <p class="input-group">
-                        <input type="text" class="form-control" uib-datepicker-popup ng-model="ctrl.tranDate"
-                               id="tranDate" is-open="ctrl.popup.opened" datepicker-options="ctrl.dateOptions"
-                               ng-required="true" close-text="Close" ng-change="ctrl.fetchAllACMetricss()"/>
 
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="ctrl.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <h4>Transaction Date</h4>
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="ctrl.tranDate" ng-model-options="{timezone: 'utc'}"
+                                   id="tranDate" is-open="ctrl.popup.opened" datepicker-options="ctrl.dateOptions"
+                                   ng-required="true" close-text="Close" ng-change="ctrl.fetchAllACMetricss()"/>
+
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="ctrl.open()"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
                         </span>
 
-                            </p>
-                        </div>
-                </div>
+                        </p>
+                    </div>
 
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable" for="analystSelect">Analyst</label>
-                        <div class="col-md-7">
-                            <select id="analystSelect" class="form-control input-sm"
-                                    ng-options="acAnalyst.firstName for acAnalyst in ctrl.analystList track by acAnalyst.analystID" ng-model="ctrl.acMetrics.analyst">
-                            </select>
-                        </div>
+
+                    <div class="col-md-3">
+                        <h4>Analyst</h4>
+                        <select id="analystSelect" class="form-control input-sm"
+                                ng-options="acAnalyst.firstName for acAnalyst in ctrl.analystList track by acAnalyst.analystID"
+                                ng-model="ctrl.acMetrics.analyst">
+                        </select>
                     </div>
                 </div>
+                <hr/>
 
                 <div class="row">
                     <div class="form-group col-md-12">
@@ -86,7 +88,8 @@
                         <label class="col-md-2 control-lable" for="appSelect">Application</label>
                         <div class="col-md-7">
                             <select id="appSelect" class="form-control input-sm"
-                                    ng-options="application.appName for application in ctrl.applicationList track by application.appID" ng-model="ctrl.acMetrics.application">
+                                    ng-options="application.appName for application in ctrl.applicationList track by application.appID"
+                                    ng-model="ctrl.acMetrics.application">
                             </select>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.appID.$error.required">This is a required field</span>
@@ -100,7 +103,8 @@
                         <label class="col-md-2 control-lable" for="operSelect">Operation</label>
                         <div class="col-md-7">
                             <select id="operSelect" class="form-control input-sm"
-                                    ng-options="operation.operationType for operation in ctrl.operationList track by operation.operationID" ng-model="ctrl.acMetrics.operation">
+                                    ng-options="operation.operationType for operation in ctrl.operationList track by operation.operationID"
+                                    ng-model="ctrl.acMetrics.operation">
                             </select>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.operationID.$error.required">This is a required field</span>
@@ -152,7 +156,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="acm in ctrl.acMetricsList">
+                <tr ng-repeat="acm in ctrl.acMetricsList" ng-hide="ctrl.hideMetricsOfAnalyst(acm.analyst)">
                     <td><span ng-bind="acm.acmID"></span></td>
                     <td><span ng-bind="acm.analyst.firstName"></span></td>
                     <td><span ng-bind="acm.snowid"></span></td>
