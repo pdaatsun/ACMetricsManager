@@ -47,7 +47,7 @@
                     <div class="col-md-3">
                         <h4>Transaction Date</h4>
                         <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup ng-model="ctrl.tranDate" ng-model-options="{timezone: 'utc'}"
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="ctrl.tranDate"
                                    id="tranDate" is-open="ctrl.popup.opened" datepicker-options="ctrl.dateOptions"
                                    ng-required="true" close-text="Close" ng-change="ctrl.fetchAllACMetricss()"/>
 
@@ -189,7 +189,8 @@
 <script src="<c:url value='/static/js/controller/ACMetrics_controller.js' />"></script>
 
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-
+<script data-require="moment.js@*" data-semver="2.8.3" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+<script data-require="moment-timezone-with-data@*" data-semver="0.2.5" src="http://momentjs.com/downloads/moment-timezone-with-data.min.js"></script>
 
 </body>
 </html>
