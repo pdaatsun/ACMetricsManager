@@ -184,9 +184,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
 
-<script src="<c:url value='/static/js/app.js' />"></script>
-<script src="<c:url value='/static/js/service/ACMetrics_service.js' />"></script>
-<script src="<c:url value='/static/js/controller/ACMetrics_controller.js' />"></script>
+<script src="<c:url value='/resources/js/app.js' />"></script>
+<script src="<c:url value='/static/js/service/ACMetricsService.js' />"></script>
+<script src="<c:url value='/static/js/controller/HomeController.js' />"></script>
 
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 <script data-require="moment.js@*" data-semver="2.8.3" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>

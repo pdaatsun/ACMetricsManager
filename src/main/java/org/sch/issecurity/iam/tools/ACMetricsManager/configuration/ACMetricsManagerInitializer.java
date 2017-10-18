@@ -8,12 +8,12 @@ public class ACMetricsManagerInitializer extends AbstractAnnotationConfigDispatc
  
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { ACMetricsManagerConfiguration.class };
+        return new Class[] { ACMetricsManagerConfiguration.class, LoginSecurityConfig.class };
     }
   
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return null;
+        return new Class[] { ACMetricsManagerConfiguration.class };
     }
   
     @Override

@@ -1,7 +1,6 @@
 'use strict';
 
-
-App.factory('ACMetrics', ['$resource', function ($resource) {
+myapp.factory('ACMetrics', ['$resource', function ($resource) {
 	//$resource() function returns an object of resource class
     return $resource(
     		'http://localhost:8080/acm/:id',

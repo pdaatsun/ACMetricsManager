@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('ACMetricsController', ['$scope', 'ACMetrics', function ($scope, ACMetrics) {
+myapp.controller('HomeController', ['$scope', 'ACMetrics', function ($scope, ACMetrics) {
     var self = this;
 
     self.acMetrics = new ACMetrics();

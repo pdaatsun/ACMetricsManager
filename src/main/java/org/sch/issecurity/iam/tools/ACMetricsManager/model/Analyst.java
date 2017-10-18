@@ -28,6 +28,12 @@ public class Analyst {
     @Column(name = "status")
     String status;
 
+    @Column(name = "adID")
+    String adID;
+
+    @Column(name = "userRole")
+    String userRole;
+
     public int getAnalystID() {
         return analystID;
     }
@@ -74,5 +80,21 @@ public class Analyst {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAdID() {
+        return adID;
+    }
+
+    public void setAdID(String adID) {
+        this.adID = adID;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

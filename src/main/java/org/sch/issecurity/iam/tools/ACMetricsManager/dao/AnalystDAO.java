@@ -11,6 +11,8 @@ public interface AnalystDAO {
 
     Analyst getAnalystByID(int analystID);
 
+    Analyst getAnalystByADID(String adID);
+
     List<Analyst> listAnalyst();
 
 }

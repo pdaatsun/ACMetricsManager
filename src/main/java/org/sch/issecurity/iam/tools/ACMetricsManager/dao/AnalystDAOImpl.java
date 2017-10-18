@@ -15,7 +15,7 @@ import java.util.List;
  * Created by XiChen on 9/9/2017.
  */
 @Repository("analystDAO")
-public class AnalystDAOImpl extends AbstractDao<Long, Analyst> implements AnalystDAO{
+public class AnalystDAOImpl extends AbstractDao<Long, Analyst> implements AnalystDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -31,6 +31,19 @@ public class AnalystDAOImpl extends AbstractDao<Long, Analyst> implements Analys
     @Override
     public Analyst getAnalystByID(int analystID) {
         return getByKey(new Long(analystID));
+    }
+
+    @Override
+    public Analyst getAnalystByADID(String adID) {
+
+        Analyst foundAnalyst = null;
+        if ((adID != null) && (adID.length() > 0)) {
+            Criteria criteria = createEntityCriteria();
+            criteria.add(Restrictions.eq("adID", adID).ignoreCase());
+            foundAnalyst = (Analyst) criteria.uniqueResult();
+        }
+
+        return foundAnalyst;
     }
 
     @Override
