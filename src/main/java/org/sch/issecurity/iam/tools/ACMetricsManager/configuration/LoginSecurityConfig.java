@@ -42,11 +42,14 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler restAuthenticationFailureHandler;
 
     @Autowired
+    private AnalystAuthoritiesPopulator analystAuthoritiesPopulator;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.ldapAuthentication()
                 .userSearchFilter("(&(objectClass=user)(sAMAccountName={0}))")
                 .contextSource(ldapContextSource())
-                .ldapAuthoritiesPopulator(new AnalystAuthoritiesPopulator()); ;
+                .ldapAuthoritiesPopulator(analystAuthoritiesPopulator); ;
     }
 
     @Override

@@ -36,10 +36,22 @@ myapp.service('AuthSharedService', function ($rootScope, $http, $resource, authS
                 password: password,
                 rememberme: rememberMe
             }), config)
-                .success(function (data, status, headers, config) {
+                .then(function onSuccess(response) {
+                    // Handle success
+                    var data = response.data;
+                    var status = response.status;
+                    var statusText = response.statusText;
+                    var headers = response.headers;
+                    var config = response.config;
                     authService.loginConfirmed(data);
                 })
-                .error(function (data, status, headers, config) {
+                .catch(function onError(response) {
+                    // Handle error
+                    var data = response.data;
+                    var status = response.status;
+                    var statusText = response.statusText;
+                    var headers = response.headers;
+                    var config = response.config;
                     $rootScope.authenticationError = true;
                     Session.invalidate();
                 });

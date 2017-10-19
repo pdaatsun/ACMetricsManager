@@ -5,6 +5,7 @@ import org.sch.issecurity.iam.tools.ACMetricsManager.model.ACMetrics;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Analyst;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Application;
 import org.sch.issecurity.iam.tools.ACMetricsManager.model.Operation;
+import org.sch.issecurity.iam.tools.ACMetricsManager.utlity.AnalystAuthoritiesPopulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -144,5 +145,12 @@ public class ACMetricsManagerConfiguration extends WebMvcConfigurerAdapter{
 	@Bean(name = "operationDAO")
 	public OperationDAO getOperationDAO(SessionFactory sessionFactory) {
 		return new OperationDAOImpl(sessionFactory);
+	}
+
+	@Bean(name = "analystAuthoritiesPopulator")
+	public AnalystAuthoritiesPopulator getAnalystAuthoritiesPopulator() {
+		AnalystAuthoritiesPopulator analystAuthoritiesPopulator = new AnalystAuthoritiesPopulator();
+
+		return analystAuthoritiesPopulator;
 	}
 }

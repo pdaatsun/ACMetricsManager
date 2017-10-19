@@ -7,6 +7,7 @@ import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.Collection;
 /**
  * Created by XiChen on 10/8/2017.
  */
+@Component
 public class AnalystAuthoritiesPopulator implements LdapAuthoritiesPopulator {
 
     @Autowired
