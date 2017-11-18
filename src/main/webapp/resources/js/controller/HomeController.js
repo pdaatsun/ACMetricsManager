@@ -106,6 +106,9 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
             locals: {
                 acMetrics: tempData,
                 acMetricsList: $scope.acMetricsList,
+                analystList: $scope.analystList,
+                applicationList: $scope.applicationList,
+                operationList: $scope.operationList,
                 operation: operation
             },
             bindToController: true,
@@ -119,12 +122,14 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
             );
     };
 
-    function DialogController($scope, $mdDialog, operation, acMetrics, acMetricsList) {
-        $scope = {
-            acMetrics: acMetrics,
-            acMetricsList: acMetricsList,
-            operation: 'Add'
-        };
+    function DialogController($scope, $mdDialog, operation, acMetrics, acMetricsList, analystList, applicationList, operationList) {
+        $scope.acMetrics = acMetrics;
+        $scope.operation = operation;
+        $scope.acMetricsList = acMetricsList;
+        $scope.analystList = analystList;
+        $scope.applicationList = applicationList;
+        $scope.operationList = operationList;
+
        switch (operation) {
             case 'C':
                 $scope.operation = 'Add';
@@ -144,6 +149,7 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
             $mdDialog.cancel();
         }
 
+        console.log('acMetrics: ' + $scope.acMetrics.acmID);
 
         $scope.saveRecord = function saveRecord() {
             if ($scope.acMetrics.acmID === undefined) addRecord();

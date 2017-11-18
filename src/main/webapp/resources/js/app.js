@@ -9,7 +9,7 @@ myapp.constant('USER_ROLES', {
 });
 
 function iconConfiguration($mdIconProvider) {
-    $mdIconProvider.defaultIconSet('icons_24x24.svg', 24);
+    $mdIconProvider.defaultIconSet('resources/img/icons_24x24.svg', 24);
 }
 
 myapp.config(iconConfiguration);
