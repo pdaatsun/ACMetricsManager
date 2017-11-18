@@ -1,0 +1,37 @@
+{
+  "name": "acMetricsManager",
+  "version": "0.0.1",
+  "dependencies": {
+    "bower": "~1.8.2",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-vendor": "0.0.4",
+    "gulp-uglify": "^3.0.0",
+    "main-bower-files": "^2.9.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-notify": "3.0.0",
+    "gulp-inject": "4.3.0",
+    "run-sequence": "2.2.0",
+    "stream-series": "0.1.1",
+    "gulp-gzip": "1.4.0",
+    "gulp-clone": "1.0.0",
+    "gulp-order": "1.1.1",
+    "gulp-flatten": "0.3.1",
+    "gulp-rimraf": "0.2.1",
+    "gulp-debug": "3.1.0",
+    "gulp-uncss": "1.0.6"
+  },
+  "jspm": {
+    "dependencies": {
+      "jquery": "github:jquery/jquery@^3.2.1"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    }
+  },
+  "scripts": {
+    "prebuild": "npm install",
+    "build": "gulp"
+  }
+}

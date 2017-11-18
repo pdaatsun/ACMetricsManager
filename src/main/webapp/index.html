@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="resources/img/favicon.jpeg"/>
+    <!-- inject:css -->
+    <link rel="stylesheet" href="resources/vendor/css/lib.min.css">
+    <link rel="stylesheet" href="resources/css/main.css">
+    <!-- endinject -->
+    <title>Access Control Operation Metrics Manager</title>
+</head>
+<body ng-cloak layout="column">
+
+<!-- Container #1 (see wireframe) -->
+<md-toolbar layout="row" class="md-toolbar-tools">
+    <md-button class="menu md-icon-button" hide-gt-sm ng-click=""
+               aria-label="Show User List">
+        <md-icon md-svg-icon="menu"></md-icon>
+    </md-button>
+    <h1>Access Control Operation Metrics Manager</h1>
+</md-toolbar>
+
+<div flex layout="row">
+    <md-content flex id="content">
+        <div ng-view="" flex></div>
+    </md-content>
+</div>
+
+<!-- inject:js -->
+
+<script src="resources/vendor/js/lib.min.js"></script>
+
+<script src="resources/js/app.js"></script>
+
+<script src="resources/js/service/ACMetricsService.js"></script>
+
+<script src="resources/js/service/AuthServices.js"></script>
+
+<script src="resources/js/directive/directives.js"></script>
+
+<script src="resources/js/controller/ErrorController.js"></script>
+
+<script src="resources/js/controller/HomeController.js"></script>
+
+<script src="resources/js/controller/LoginController.js"></script>
+
+<script src="resources/js/controller/LogoutController.js"></script>
+
+<script src="resources/js/controller/UsersController.js"></script>
+
+<!-- endinject -->
+
+</body>
+</html>

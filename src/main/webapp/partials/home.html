@@ -1,0 +1,123 @@
+<span>
+    <md-content class="full-heigth">
+        <div layout="row">
+            <div flex>
+        <md-input-container class="md-block" flex-gt-sm="">
+            <label>Transaction Date</label>
+            <md-datepicker ng-model="tranDate" id="tranDateDP" is-open="popup.opened"
+                           datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-change="fetchAllACMetricss()"/>
+        </md-input-container>
+            </div>
+            <div flex>
+        <md-input-container class="md-block" flex-gt-xs="">
+            <label>Analyst</label>
+            <md-select ng-model="acAnalyst">
+                <md-option ng-repeat="acAnalyst in analystList" value="{{acAnalyst.analystID}}">
+                    {{acAnalyst.firstName}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+            </div>
+        </div>
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="acm in acMetricsList" ng-click="showDialog('R', acm, $event)" ng-hide="hideMetricsOfAnalyst(acm.analyst)">
+                <div class="md-list-item-text">
+                    <h3>{{"ID - " + acm.acmID + " (SNOWID - " + acm.snowid + ")"}}</h3>
+                    <h4>{{"Analyst - " + acm.analyst.firstName + " " + acm.analyst.lastName}}</h4>
+                    <p>{{acm.operation.operationType  + " " + acm.numOfUsers + " " + acm.application.appName + " account(s)"}}</p>
+                    <p>{{"Uploaded on " + acm.uploadDate}}</p>
+                </div>
+                <md-icon aria-label="Editor" class="md-secondary" md-svg-icon="white_edit"
+                         ng-click="showDialog('UD', acm, $event)"></md-icon>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <md-button class="md-fab md-fab-bottom-right" aria-label="New">
+        <md-icon md-svg-icon="white_person_add" ng-click="showDialog('C', undefined, $event)"></md-icon>
+    </md-button>
+    <script type="text/ng-template" id="editor.html">
+        <md-dialog aria-label="Editor" class="dialog-95">
+            <form name="inputForm" novalidate>
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <md-button class="md-icon-button" ng-click="goBack()">
+                            <md-icon md-svg-icon="white_back" aria-label="Return"></md-icon>
+                            <md-tooltip md-delay="1500" md-autohide="true">Return</md-tooltip>
+                        </md-button>
+                        <h2>{{operation}}</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="deleteRecord()" ng-show="operation === 'Delete'">
+                            <md-icon md-svg-icon="white_delete" aria-label="Delete"></md-icon>
+                            <md-tooltip md-delay="1500" md-autohide="true">Delete</md-tooltip>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="saveRecord()"
+                                   ng-show="operation === 'Add' || operation === 'Modify'"
+                                   ng-disabled="inputForm.$invalid">
+                            <md-icon md-svg-icon="white_save" aria-label="Save"></md-icon>
+                            <md-tooltip md-delay="1500" md-autohide="true">Save</md-tooltip>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-dialog-content>
+                    <md-content layout-padding ng-cloak>
+
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>SNOW ID</label>
+                        <input ng-model="acMetrics.snowid" id="SNOWID" required/>
+                        <div ng-messages="inputForm.SNOWID.$error">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Analyst</label>
+                        <md-select ng-model="acMetrics.analyst" id="analystSelect" required>
+                            <md-option ng-repeat="acAnalyst in analystList" value="{{acAnalyst.analystID}}">
+                                {{acAnalyst.firstName}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="inputForm.analystSelect.$error">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Application</label>
+                        <md-select ng-model="acMetrics.application" id="appSelect" required>
+                            <md-option ng-repeat="application in applicationList" value="{{application.appID}}">
+                                {{application.appName}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="inputForm.appSelect.$error">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Operation</label>
+                        <md-select ng-model="acMetrics.operation" id="operSelect" required>
+                            <md-option ng-repeat="operation in operationList" value="{{operation.operationID}}">
+                                {{operation.operationType}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="inputForm.operSelect.$error" ng-if="acMetrics.operation.$dirty">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Number of Users</label>
+                        <input type="text" ng-model="acMetrics.numOfUsers" id="numOfUsers" required/>
+                        <div ng-messages="acMetrics.numOfUsers.$error"
+                             ng-if="acMetrics.numOfUsers.$dirty">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+
+                    </md-content>
+                </md-dialog-content>
+            </form>
+        </md-dialog>
+    </script>
+</span>

@@ -1,6 +1,6 @@
 'use strict';
 
-var myapp = angular.module('myApp',['ngResource', 'ngRoute', 'swaggerUi', 'http-auth-interceptor', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-spinkit']);
+var myapp = angular.module('myApp',['ngMaterial', 'ngResource', 'ngRoute', 'http-auth-interceptor', 'ngAnimate','ngAria','ngMessages', 'ngSanitize', 'angular-spinkit']);
 
 myapp.constant('USER_ROLES', {
     all: '*',
@@ -8,6 +8,11 @@ myapp.constant('USER_ROLES', {
     user: 'user'
 });
 
+function iconConfiguration($mdIconProvider) {
+    $mdIconProvider.defaultIconSet('icons_24x24.svg', 24);
+}
+
+myapp.config(iconConfiguration);
 
 myapp.config(function ($routeProvider, USER_ROLES) {
 
@@ -81,13 +86,13 @@ myapp.run(function ($rootScope, $location, $http, AuthSharedService, Session, US
         }
         console.log('routeChangeStart 4');
     });
-
+/*
     $rootScope.$on('$routeChangeSuccess', function (scope, next, current) {
         $rootScope.$evalAsync(function () {
             $.material.init();
         });
     });
-
+*/
     // Call when the the client is confirmed
     $rootScope.$on('event:auth-loginConfirmed', function (event, data) {
         console.log('login confirmed start ' + data);

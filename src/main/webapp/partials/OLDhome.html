@@ -1,0 +1,121 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><span class="lead">Access Control Operation Metrics Manager </span></div>
+    <md-content>
+        <div layout="column" ng-cloak="">
+            <form ng-submit="submit()" name="myForm" class="form-horizontal">
+
+                <input type="hidden" ng-model="acMetrics.acmID"/>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Transaction Date</label>
+                        <md-datepicker ng-model="tranDate" id="tranDateDP" is-open="popup.opened"
+                                       datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                       ng-change="fetchAllACMetricss()"/>
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block" flex-gt-xs="">
+                        <label>Analyst</label>
+                        <md-select ng-model="acMetrics.analyst">
+                            <md-option ng-repeat="acAnalyst in analystList" value="{{acAnalyst.analystID}}">
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>SNOW ID</label>
+                        <input ng-model="acMetrics.snowid" id="SNOWID"
+                               class="form-control input-sm" required/>
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.SNOWID.$error.required">This is a required field</span>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Application</label>
+                        <md-select ng-model="acMetrics.application">
+                            <md-option ng-repeat="application in applicationList" value="{{application.appID}}">
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Operation</label>
+                        <md-select ng-model="acMetrics.operation">
+                            <md-option ng-repeat="operation in operationList" value="{{operation.operationID}}">
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Number of Users</label>
+                        <input type="text" ng-model="acMetrics.numOfUsers" id="numOfUsers"
+                               class="form-control input-sm" placeholder="Enter Number of Users" required/>
+                        <div class="has-error" ng-show="myForm.$dirty">
+                            <span ng-show="myForm.SNOWID.$error.required">This is a required field</span>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <md-button type="submit" value="{{!acMetrics.acmID ? 'Add' : 'Update'}}"
+                                   class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+                        </md-button>
+                        <md-button type="button" ng-click="reset()" class="btn btn-warning btn-sm"
+                                   ng-disabled="myForm.$pristine">Reset Form
+                        </md-button>
+                    </md-input-container>
+                </div>
+            </form>
+        </div>
+    </md-content>
+</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><span class="lead">List of Metrics </span></div>
+    <div class="tablecontainer">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Metrics ID</th>
+                <th>Analyst</th>
+                <th>SNOW ID</th>
+                <th>Application</th>
+                <th>Operation</th>
+                <th>Number of Users</th>
+                <th>Upload Date</th>
+                <th width="20%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="acm in acMetricsList" ng-hide="hideMetricsOfAnalyst(acm.analyst)">
+                <td><span ng-bind="acm.acmID"></span></td>
+                <td><span ng-bind="acm.analyst.firstName"></span></td>
+                <td><span ng-bind="acm.snowid"></span></td>
+                <td><span ng-bind="acm.application.appName"></span></td>
+                <td><span ng-bind="acm.operation.operationType"></span></td>
+                <td><span ng-bind="acm.numOfUsers"></span></td>
+                <td><span ng-bind="acm.uploadDate"></span></td>
+                <td>
+                    <button type="button" ng-click="edit(acm.acmID)" class="btn btn-success custom-width">
+                        Edit
+                    </button>
+                    <button type="button" ng-click="remove(acm.acmID)" class="btn btn-danger custom-width">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
