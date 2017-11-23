@@ -11,7 +11,7 @@ html, body {
 }
 
 /* Toolbar area */
-
+/*
 .menu {
   background-color: transparent;
   border: none;
@@ -23,9 +23,9 @@ html, body {
 md-toolbar h1 {
   margin: auto;
 }
-
+*/
 /* Sidenav area */
-
+/*
 md-list .md-button {
   color: inherit;
   font-weight: 500;
@@ -40,11 +40,11 @@ md-list .md-button.selected {
 md-sidenav md-list {
   padding: 0px 0px 8px 0px;
 }
-
-/* Primary content area */
+*/
+/* Primary content area
 
 #content {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #content {
@@ -92,14 +92,14 @@ md-button.menuBtn > md-icon {
   height: auto;
   max-width: 500px;
 }
-
-/* Utils */
+*/
+/* Utils
 
 .content-wrapper {
   position: relative;
 }
-
-/* Typography support coming in 0.8.0 */
+*/
+/* Typography support coming in 0.8.0
 
 md-toolbar h1 {
   font-size: 1.250em;
@@ -130,4 +130,15 @@ span.name {
   font-weight: bold;
   font-size: 1.1em;
   padding-left: 5px;
+}
+*/
+.full-heigth {
+  height: -moz-calc(100% - 64px);
+  height: -webkit-calc(100% - 64px);
+  height: calc(100% - 64px);
+}
+
+.dialog-95 {
+  width: 95%;
+  height: auto;
 }

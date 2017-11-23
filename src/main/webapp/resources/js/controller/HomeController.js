@@ -82,23 +82,20 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
     };
 
     $scope.showDialog = function showDialog(operation, data, event) {
-        var tempData = undefined;
+        //var tempData = undefined;
+        var tempData = new ACMetrics();
         if (data === undefined) {
-            tempData = {
-                tranDate: new Date(),
-                uploadDate: new Date()
-            }
+            tempData.tranDate = new Date();
+            tempData.uploadDate = new Date()
         } else {
-            tempData = {
-                acmID: data.acmID,
-                tranDate: data.tranDate,
-                snowid: data.snowid,
-                analyst: data.analyst,
-                operation: data.operation,
-                numOfUsers: data.numOfUsers,
-                application: data.application,
-                uploadDate: data.uploadDate
-            };
+            tempData.acmID = data.acmID;
+            tempData.tranDate = data.tranDate;
+            tempData.snowid = data.snowid;
+            tempData.analyst = data.analyst;
+            tempData.operation = data.operation;
+            tempData.numOfUsers = data.numOfUsers;
+            tempData.application = data.application;
+            tempData.uploadDate = data.uploadDate;
         }
         $mdDialog.show({
             templateUrl: 'editor.html',
@@ -113,7 +110,8 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
             },
             bindToController: true,
             controller: DialogController,
-            parent: angular.element(document.body)
+            parent: angular.element(document.body),
+            onComplete: $scope.fetchAllACMetricss
         })
             .then(
                 function (result) {
@@ -150,22 +148,23 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
         }
 
         console.log('acMetrics: ' + $scope.acMetrics.acmID);
+        console.log('analystList: ' + $scope.analystList);
 
         $scope.saveRecord = function saveRecord() {
-            if ($scope.acMetrics.acmID === undefined) addRecord();
-            else modifyRecord();
+            if ($scope.acMetrics.acmID === undefined) $scope.addRecord();
+            else $scope.modifyRecord();
         }
 
         $scope.addRecord = function addRecord() {
             $scope.acMetrics.$save(function () {
-                $scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
+                //$scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
                 $mdDialog.hide('Metrics Added');
             });
         }
 
         $scope.modifyRecord = function modifyRecord() {
             $scope.acMetrics.$update(function () {
-                $scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
+                //$scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
                 $mdDialog.hide('Metrics Modified');
             });
         }
@@ -173,7 +172,7 @@ myapp.controller('HomeController', ['$scope', '$mdToast', '$mdDialog', 'ACMetric
         $scope.deleteRecord = function deleteRecord() {
             var acMetrics = $scope.$parent.ACMetrics.get({id: $scope.acMetrics.id}, function () {
                 acMetrics.$delete(function () {
-                    $scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
+                    //$scope.$parent.fetchAllACMetricss($scope.$parent.tranDate);
                     $mdDialog.hide('Metrics Deleted');
                 });
             });

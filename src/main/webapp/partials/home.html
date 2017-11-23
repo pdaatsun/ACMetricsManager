@@ -1,11 +1,12 @@
 <span>
-    <md-content class="full-heigth">
+<md-content class="md-padding">
         <div layout="row">
             <div flex>
         <md-input-container class="md-block" flex-gt-sm="">
             <label>Transaction Date</label>
             <md-datepicker ng-model="tranDate" id="tranDateDP" is-open="popup.opened"
-                           datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-change="fetchAllACMetricss()"/>
+                           datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                           ng-change="fetchAllACMetricss()"/>
         </md-input-container>
             </div>
             <div flex>
@@ -19,8 +20,10 @@
         </md-input-container>
             </div>
         </div>
+    <md-content class="full-heigth">
         <md-list>
-            <md-list-item class="md-3-line" ng-repeat="acm in acMetricsList" ng-click="showDialog('R', acm, $event)" ng-hide="hideMetricsOfAnalyst(acm.analyst)">
+            <md-list-item class="md-3-line" ng-repeat="acm in acMetricsList" ng-click="showDialog('R', acm, $event)"
+                          ng-hide="hideMetricsOfAnalyst(acm.analyst)">
                 <div class="md-list-item-text">
                     <h3>{{"ID - " + acm.acmID + " (SNOWID - " + acm.snowid + ")"}}</h3>
                     <h4>{{"Analyst - " + acm.analyst.firstName + " " + acm.analyst.lastName}}</h4>
@@ -36,6 +39,7 @@
     <md-button class="md-fab md-fab-bottom-right" aria-label="New">
         <md-icon md-svg-icon="white_person_add" ng-click="showDialog('C', undefined, $event)"></md-icon>
     </md-button>
+    </md-content>
     <script type="text/ng-template" id="editor.html">
         <md-dialog aria-label="Editor" class="dialog-95">
             <form name="inputForm" novalidate>
@@ -72,8 +76,9 @@
 
                         <md-input-container class="md-block" flex-gt-sm="">
                         <label>Analyst</label>
-                        <md-select ng-model="acMetrics.analyst" id="analystSelect" required>
-                            <md-option ng-repeat="acAnalyst in analystList" value="{{acAnalyst.analystID}}">
+                        <md-select ng-model="acMetrics.analyst" ng-model-options="{trackBy: '$value.analystID'}"
+                                   id="analystSelect" required>
+                            <md-option ng-repeat="acAnalyst in analystList" ng-value="acAnalyst">
                                 {{acAnalyst.firstName}}
                             </md-option>
                         </md-select>
@@ -84,8 +89,9 @@
 
                     <md-input-container class="md-block" flex-gt-sm="">
                         <label>Application</label>
-                        <md-select ng-model="acMetrics.application" id="appSelect" required>
-                            <md-option ng-repeat="application in applicationList" value="{{application.appID}}">
+                        <md-select ng-model="acMetrics.application" ng-model-options="{trackBy: '$value.appID'}"
+                                   id="appSelect" required>
+                            <md-option ng-repeat="application in applicationList" ng-value="application">
                                 {{application.appName}}
                             </md-option>
                         </md-select>
@@ -96,8 +102,9 @@
 
                     <md-input-container class="md-block" flex-gt-sm="">
                         <label>Operation</label>
-                        <md-select ng-model="acMetrics.operation" id="operSelect" required>
-                            <md-option ng-repeat="operation in operationList" value="{{operation.operationID}}">
+                        <md-select ng-model="acMetrics.operation" ng-model-options="{trackBy: '$value.operationID'}"
+                                   id="operSelect" required>
+                            <md-option ng-repeat="operation in operationList" ng-value="operation">
                                 {{operation.operationType}}
                             </md-option>
                         </md-select>
